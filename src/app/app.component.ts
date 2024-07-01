@@ -1,25 +1,15 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
-import {
-  GreetingsService,
-  IGreetings,
-} from './core/services/greetings.service';
+
 import { Observable } from 'rxjs';
+import { MainComponent } from './pages/main/main.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet],
+  imports: [CommonModule, RouterOutlet, MainComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
-export class AppComponent {
-  private greetingsService = inject(GreetingsService);
-
-  greetings$!: Observable<IGreetings>;
-
-  sayHello() {
-    this.greetings$ = this.greetingsService.getGreetings();
-  }
-}
+export class AppComponent {}
