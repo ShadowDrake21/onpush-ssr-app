@@ -1,0 +1,34 @@
+<section>
+  <div>
+    <div class="todos-top">
+      <p-button
+        label="Fetch!"
+        icon="pi pi-check"
+        class="full-btn"
+        (onClick)="onTodosFetch()"
+      />
+      <p-dropdown
+        [options]="generateItemsCount(10)"
+        [(ngModel)]="selectedRandomCount"
+        optionLabel="label"
+        placeholder="Select a
+      Count"
+      />
+    </div>
+
+    {{ todos$ | async | json }}
+
+    <div>
+      @if (todos$ | async; as todos) { @for (todo of todos; track todo.id) {
+      <div style="cursor: pointer" (click)="onRegenerateTodo(todo.id)">
+        <p-card [header]="'Todo Card #' + todo.id">
+          <p class="m-0">{{ todo.todo }}</p>
+          <span style="font-weight: 600"
+            >Status: {{ todo.completed ? "completed" : "incomplited" }}</span
+          >
+        </p-card>
+      </div>
+      }}
+    </div>
+  </div>
+</section>

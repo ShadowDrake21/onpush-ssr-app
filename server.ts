@@ -21,13 +21,6 @@ export function app(): express.Express {
   // server.get('/api/**', (req, res) => { });
   // Serve static files from /browser
   server.get(
-    '/api/greetings',
-    (req: express.Request, res: express.Response) => {
-      res.send({ message: 'Hello from Angular SSR!' });
-    }
-  );
-
-  server.get(
     '*.*',
     express.static(browserDistFolder, {
       maxAge: '1y',

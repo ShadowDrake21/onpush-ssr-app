@@ -1,1 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+html {
+  padding: 0;
+  bottom: 0;
+}
+
+.container {
+  max-width: 1200px;
+  padding: 0 10px;
+  margin: 0 auto;
+}
+
+.full-btn {
+  width: 100%;
+}
+
+.full-btn button {
+  width: 100%;
+}
