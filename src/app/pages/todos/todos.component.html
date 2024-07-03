@@ -13,22 +13,51 @@
         optionLabel="label"
         placeholder="Select a
       Count"
+        (onChange)="onTodosFetch()"
       />
     </div>
 
-    {{ todos$ | async | json }}
-
-    <div>
-      @if (todos$ | async; as todos) { @for (todo of todos; track todo.id) {
-      <div style="cursor: pointer" (click)="onRegenerateTodo(todo.id)">
-        <p-card [header]="'Todo Card #' + todo.id">
-          <p class="m-0">{{ todo.todo }}</p>
-          <span style="font-weight: 600"
-            >Status: {{ todo.completed ? "completed" : "incomplited" }}</span
-          >
+    <div class="todos-list">
+      @for (todo of todos$ | async; track todo.id) {
+      <div class="todo-wrapper">
+        <p-card [header]="todo.todo" class="todo">
+          <div class="todo-inner">
+            <div>
+              <p class="m-0">{{ "Todo Card #" + todo.id }}</p>
+              <span style="font-weight: 600">
+                Status:
+                <button
+                  type="button"
+                  class="todo-btn"
+                  [ngClass]="{
+                    completed: todo.completed,
+                    incomplited: !todo.completed
+                  }"
+                  (click)="onToggleCompleteness(todo.id)"
+                >
+                  {{ todo.completed ? "completed" : "incomplited" }}
+                </button>
+              </span>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 5px">
+              <p-button
+                label="Regenerate"
+                severity="success"
+                [style]="{ width: '100%' }"
+                (onClick)="onRegenerateTodo(todo.id)"
+              />
+              <p-button
+                label="Remove"
+                type="button"
+                severity="secondary"
+                [style]="{ width: '100%' }"
+                (onClick)="onRemoveTodo(todo.id)"
+              />
+            </div>
+          </div>
         </p-card>
       </div>
-      }}
+      }
     </div>
   </div>
 </section>
