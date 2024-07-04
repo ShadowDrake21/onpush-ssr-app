@@ -1,0 +1,23 @@
+<header>
+  <p-menubar
+    [model]="menuItems"
+    [style]="{
+      position: 'absolute',
+      'z-index': 99,
+      width: 'calc(100% - 40px)',
+      top: '10px',
+      left: '50%',
+      transform: 'translateX(-50%)'
+    }"
+    ><ng-template pTemplate="start"
+      ><img
+        src="/assets/images/header-logo.png"
+        alt="header-logo"
+        height="40"
+      />
+    </ng-template>
+    <ng-template pTemplate="end"
+      ><span style="font-weight: 700">Drake21 OnPush && SSR App</span>
+    </ng-template></p-menubar
+  >
+</header>

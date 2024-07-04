@@ -1,8 +1,8 @@
-<section>
+<section #todos class="section">
   <div>
     <div class="todos-top">
       <p-button
-        label="Fetch!"
+        [label]="actionTitle"
         icon="pi pi-check"
         class="full-btn"
         (onClick)="onTodosFetch()"
@@ -39,7 +39,7 @@
                 </button>
               </span>
             </div>
-            <div style="display: flex; flex-direction: column; gap: 5px">
+            <div class="todo-btns">
               <p-button
                 label="Regenerate"
                 severity="success"

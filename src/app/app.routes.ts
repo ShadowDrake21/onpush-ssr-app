@@ -8,14 +8,14 @@ export const routes: Routes = [
       import('./pages/main/main.component').then((c) => c.MainComponent),
   },
   {
-    path: 'quotes',
-    loadComponent: () =>
-      import('./pages/quotes/quotes.component').then((c) => c.QuotesComponent),
-  },
-  {
     path: 'todos',
     loadComponent: () =>
       import('./pages/todos/todos.component').then((c) => c.TodosComponent),
+  },
+  {
+    path: 'quotes',
+    loadComponent: () =>
+      import('./pages/quotes/quotes.component').then((c) => c.QuotesComponent),
   },
   {
     path: 'users',
