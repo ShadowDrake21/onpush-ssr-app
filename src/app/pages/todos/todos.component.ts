@@ -5,6 +5,7 @@ import {
   ElementRef,
   inject,
   OnDestroy,
+  OnInit,
   ViewChild,
 } from '@angular/core';
 import { ApiService } from '../../core/services/api.service';
@@ -15,6 +16,10 @@ import { SelectItem } from 'primeng/api';
 import { AsyncPipe, JsonPipe, NgClass } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import {
+  BehaviorSubject,
+  EMPTY,
+  filter,
+  from,
   map,
   Observable,
   of,
@@ -62,9 +67,9 @@ export class TodosComponent implements OnDestroy {
 
   selectedRandomCount: SelectItem = { label: `${1}`, value: 1 };
 
-  todos$!: Observable<ITodo[]>;
+  todos$: Observable<ITodo[]> = EMPTY;
 
-  actionTitle: string = 'Fetch!';
+  actionTitle$$ = new BehaviorSubject<string>('Fetch!');
 
   private regenerateSubscription!: Subscription;
 
@@ -73,7 +78,8 @@ export class TodosComponent implements OnDestroy {
       .getRandomTodo(this.selectedRandomCount.value)
       .pipe(
         tap(() => {
-          if (this.actionTitle === 'Fetch!') this.actionTitle = 'Regenerate!';
+          if (this.actionTitle$$.getValue() === 'Fetch!')
+            this.actionTitle$$.next('Regenerate!');
           this.cdRef.markForCheck();
         }),
         shareReplay()
@@ -107,8 +113,11 @@ export class TodosComponent implements OnDestroy {
   onRemoveTodo(removeId: number) {
     this.todos$ = this.todos$.pipe(
       map((allTodos) => allTodos.filter((todo) => todo.id !== removeId)),
-      tap(() => {
-        this.cdRef.markForCheck();
+      tap((todos) => {
+        if (!todos.length) {
+          this.actionTitle$$.next('Fetch!');
+        }
+        this.cdRef.detectChanges();
         this.outputImage('remove');
       }),
       shareReplay()
@@ -138,8 +147,9 @@ export class TodosComponent implements OnDestroy {
 
   outputImage(type: 'regenerate' | 'remove') {
     const section = this.section.nativeElement as HTMLElement;
-    const winWidth = window.innerWidth;
-    const winHeight = window.innerHeight;
+    section.style.position = 'relative';
+    const sectionWidth = section.clientWidth;
+    const sectionHeight = section.clientHeight;
 
     if (section) {
       let imgObj: HTMLImageElement = document.createElement('img');
@@ -147,8 +157,8 @@ export class TodosComponent implements OnDestroy {
       imgObj.style.zIndex = '100';
       imgObj.style.width = '80px';
       imgObj.style.height = '80px';
-      imgObj.style.top = this.getRandomPosition(0, winHeight - 80) + 'px';
-      imgObj.style.left = this.getRandomPosition(0, winWidth - 80) + 'px';
+      imgObj.style.top = this.getRandomPosition(0, sectionHeight - 80) + 'px';
+      imgObj.style.left = this.getRandomPosition(0, sectionWidth - 80) + 'px';
       imgObj.style.transition = 'transform 1s ease-out, opacity 1s ease-in 1s';
 
       if (type === 'regenerate') {

@@ -2,7 +2,7 @@
   <div>
     <div class="todos-top">
       <p-button
-        [label]="actionTitle"
+        [label]="actionTitle$$.getValue()"
         icon="pi pi-check"
         class="full-btn"
         (onClick)="onTodosFetch()"
