@@ -4,7 +4,7 @@
       <p-button
         [label]="actionTitle$$.getValue()"
         icon="pi pi-check"
-        class="full-btn"
+        class="p-button full-btn"
         (onClick)="onTodosFetch()"
       />
       <p-dropdown
@@ -43,13 +43,15 @@
               <p-button
                 label="Regenerate"
                 severity="success"
+                class="p-button"
                 [style]="{ width: '100%' }"
                 (onClick)="onRegenerateTodo(todo.id)"
               />
               <p-button
                 label="Remove"
                 type="button"
-                severity="secondary"
+                class="p-button-warning"
+                severity="danger"
                 [style]="{ width: '100%' }"
                 (onClick)="onRemoveTodo(todo.id)"
               />

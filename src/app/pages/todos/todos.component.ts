@@ -30,6 +30,7 @@ import {
 } from 'rxjs';
 import { ITodo } from '../../shared/models/todo.model';
 import { animate, style, transition, trigger } from '@angular/animations';
+import { generateItemsCount } from '../../shared/utils/select.utils';
 
 @Component({
   selector: 'app-todos',
@@ -135,15 +136,7 @@ export class TodosComponent implements OnDestroy {
     );
   }
 
-  generateItemsCount(num: number): SelectItem[] {
-    let arr: SelectItem[] = [];
-
-    for (let i = 1; i <= num; i++) {
-      arr.push({ label: `${i}`, value: i });
-    }
-
-    return arr;
-  }
+  generateItemsCount = generateItemsCount;
 
   outputImage(type: 'regenerate' | 'remove') {
     const section = this.section.nativeElement as HTMLElement;

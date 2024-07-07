@@ -1,1 +1,78 @@
-<p>quotes works!</p>
+<section class="section quotes">
+  <div class="quotes__innter">
+    <div class="quotes__header">
+      <div class="quotes__header-custom">
+        <div class="quotes__header-custom__input-wrapper">
+          <label for="username">Personal quote</label>
+          <input
+            pInputText
+            id="customeQuote"
+            type="text"
+            class="quotes__header-custom__input"
+            [(ngModel)]="customQuote"
+          />
+        </div>
+        <div>
+          <p-button
+            label="Create"
+            icon="pi pi-check"
+            class="full-btn p-button"
+          />
+        </div>
+      </div>
+      <div class="quotes__header-random__wrapper">
+        <label style="display: block; padding-bottom: 8px">Random quote</label>
+        <div class="quotes__header-random">
+          <p-button
+            [label]="actionTitle"
+            icon="pi pi-check"
+            class="full-btn p-button"
+            (onClick)="onFetchRandom()"
+          />
+          <p-dropdown
+            [options]="generateItemsCount(10)"
+            [(ngModel)]="selectedRandomCount"
+            optionLabel="label"
+            placeholder="Select a
+    Count"
+          />
+        </div>
+      </div>
+    </div>
+    <div *ngIf="quotes$ | async as quotes">
+      <p-dataView #dv [value]="quotes">
+        <ng-template pTemplate="list" let-quotes>
+          <div class="grid grid-nogutter">
+            <div
+              class="col-12"
+              *ngFor="let quote of quotes; let first = first"
+              class="col-12"
+            >
+              <div
+                class="flex flex-column sm:flex-row sm:align-items-center p-4 gap-3"
+                [ngClass]="{ 'border-top-1 surface-border': !first }"
+              >
+                <div
+                  class="flex flex-column md:flex-row justify-content-between md:align-items-center flex-1 gap-4"
+                >
+                  <div
+                    class="flex flex-row md:flex-column justify-content-between align-items-start gap-2"
+                  >
+                    <div>
+                      <span class="font-medium text-secondary text-sm">{{
+                        quote.quote
+                      }}</span>
+                      <div class="text-lg font-medium text-900 mt-2">
+                        {{ quote.author }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </p-dataView>
+    </div>
+  </div>
+</section>
