@@ -19,7 +19,9 @@
         </div>
         <button
           type="button"
-          class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+          class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 disabled:bg-blue-400"
+          (click)="onCreateCustomQuote()"
+          [disabled]="!customQuote.length"
         >
           Create
         </button>
@@ -32,10 +34,10 @@
         <div class="flex gap-3 items-end">
           <button
             type="button"
-            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-            (onClick)="onFetchRandom()"
+            class="text-white w-32 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+            (click)="onFetchRandom()"
           >
-            {{ actionTitle }}
+            {{ actionTitle$$ | async }}
           </button>
 
           <select
@@ -51,36 +53,140 @@
         </div>
       </div>
     </div>
-    <div *ngIf="quotes$ | async as quotes">
-      <div class="grid grid-nogutter">
-        <div
-          class="col-12"
-          *ngFor="let quote of quotes; let first = first"
-          class="col-12"
+    <div class="relative mt-10 overflow-x-auto shadow-md sm:rounded-lg">
+      @if ((quotes$ | async)?.length) { @if (quotes$ | async; as quotes) {
+      <table
+        class="w-full text-sm text-center rtl:text-right text-gray-500 dark:text-gray-400"
+        #quotesTable
+      >
+        <thead
+          class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
         >
-          <div
-            class="flex flex-column sm:flex-row sm:align-items-center p-4 gap-3"
-            [ngClass]="{ 'border-top-1 surface-border': !first }"
+          <tr>
+            <th scope="col" class="px-6 py-3">Id</th>
+            <th scope="col" class="px-6 py-3">Quote</th>
+            <th scope="col" class="px-6 py-3">Author</th>
+            <th scope="col" class="px-6 py-3">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (quote of quotes; track quote.id) {
+          <tr
+            [id]="quote.id"
+            class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700"
           >
-            <div
-              class="flex flex-column md:flex-row justify-content-between md:align-items-center flex-1 gap-4"
+            <th
+              scope="row"
+              class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
             >
-              <div
-                class="flex flex-row md:flex-column justify-content-between align-items-start gap-2"
+              {{ quote.id }}
+            </th>
+            <td class="px-6 py-4">
+              @if (editQuote === quote.id) {<input
+                class="w-full"
+                type="text"
+                [value]="quote.quote"
+                (input)="onChangeQuoteText($event, quote.id)"
+              />} @else{{{ quote.quote}}}
+            </td>
+            <td class="px-6 py-4">
+              @if (editQuote === quote.id) {<input
+                class="w-full"
+                type="text"
+                [value]="quote.author"
+              />} @else{{{ quote.author}}}
+            </td>
+            <td class="px-6 py-4 flex flex-col gap-1">
+              <button
+                class="h-full font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                (click)="editQuote = editQuote === quote.id ? null : quote.id"
               >
-                <div>
-                  <span class="font-medium text-secondary text-sm">{{
-                    quote.quote
-                  }}</span>
-                  <div class="text-lg font-medium text-900 mt-2">
-                    {{ quote.author }}
-                  </div>
-                </div>
-              </div>
-            </div>
+                {{ editQuote === quote.id ? "Update" : "Edit" }}
+              </button>
+              <button
+                class="h-full font-medium text-red-600 dark:text-red-500 hover:underline"
+                (click)="onQuoteRemove(quote.id)"
+              >
+                Remove
+              </button>
+            </td>
+          </tr>
+          }
+        </tbody>
+      </table>
+      }}@else {
+      <div
+        role="status"
+        class="max-w-full p-4 space-y-4 border border-gray-200 divide-y divide-gray-200 rounded shadow animate-pulse dark:divide-gray-700 md:p-6 dark:border-gray-700"
+      >
+        <div class="flex items-center justify-between">
+          <div>
+            <div
+              class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"
+            ></div>
+            <div
+              class="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"
+            ></div>
           </div>
+          <div
+            class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"
+          ></div>
         </div>
+        <div class="flex items-center justify-between pt-4">
+          <div>
+            <div
+              class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"
+            ></div>
+            <div
+              class="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"
+            ></div>
+          </div>
+          <div
+            class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"
+          ></div>
+        </div>
+        <div class="flex items-center justify-between pt-4">
+          <div>
+            <div
+              class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"
+            ></div>
+            <div
+              class="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"
+            ></div>
+          </div>
+          <div
+            class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"
+          ></div>
+        </div>
+        <div class="flex items-center justify-between pt-4">
+          <div>
+            <div
+              class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"
+            ></div>
+            <div
+              class="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"
+            ></div>
+          </div>
+          <div
+            class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"
+          ></div>
+        </div>
+        <div class="flex items-center justify-between pt-4">
+          <div>
+            <div
+              class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"
+            ></div>
+            <div
+              class="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"
+            ></div>
+          </div>
+          <div
+            class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"
+          ></div>
+        </div>
+        <span class="sr-only">Loading...</span>
       </div>
+      }
     </div>
   </div>
 </section>
