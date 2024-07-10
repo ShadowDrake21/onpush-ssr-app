@@ -5,21 +5,17 @@ import {
   ElementRef,
   inject,
   OnDestroy,
-  OnInit,
   ViewChild,
 } from '@angular/core';
 import { ApiService } from '../../core/services/api.service';
-import { CardModule } from 'primeng/card';
-import { DropdownModule } from 'primeng/dropdown';
+
 import { FormsModule } from '@angular/forms';
-import { SelectItem } from 'primeng/api';
+
 import { AsyncPipe, JsonPipe, NgClass } from '@angular/common';
-import { ButtonModule } from 'primeng/button';
+
 import {
   BehaviorSubject,
   EMPTY,
-  filter,
-  from,
   map,
   Observable,
   of,
@@ -35,15 +31,7 @@ import { generateItemsCount } from '../../shared/utils/select.utils';
 @Component({
   selector: 'app-todos',
   standalone: true,
-  imports: [
-    NgClass,
-    CardModule,
-    DropdownModule,
-    FormsModule,
-    AsyncPipe,
-    JsonPipe,
-    ButtonModule,
-  ],
+  imports: [NgClass, FormsModule, AsyncPipe, JsonPipe],
   templateUrl: './todos.component.html',
   styleUrl: './todos.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -66,7 +54,7 @@ export class TodosComponent implements OnDestroy {
   private apiService = inject(ApiService);
   private cdRef = inject(ChangeDetectorRef);
 
-  selectedRandomCount: SelectItem = { label: `${1}`, value: 1 };
+  selectedRandomCount: number = 1;
 
   todos$: Observable<ITodo[]> = EMPTY;
 
@@ -75,16 +63,14 @@ export class TodosComponent implements OnDestroy {
   private regenerateSubscription!: Subscription;
 
   onTodosFetch() {
-    this.todos$ = this.apiService
-      .getRandomTodo(this.selectedRandomCount.value)
-      .pipe(
-        tap(() => {
-          if (this.actionTitle$$.getValue() === 'Fetch!')
-            this.actionTitle$$.next('Regenerate!');
-          this.cdRef.markForCheck();
-        }),
-        shareReplay()
-      );
+    this.todos$ = this.apiService.getRandomTodo(this.selectedRandomCount).pipe(
+      tap(() => {
+        if (this.actionTitle$$.getValue() === 'Fetch!')
+          this.actionTitle$$.next('Regenerate!');
+        this.cdRef.markForCheck();
+      }),
+      shareReplay()
+    );
   }
 
   onRegenerateTodo(replace_id: number) {

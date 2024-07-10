@@ -7,10 +7,6 @@
 }
 
 .quotes__header-custom {
-  display: flex;
-  align-items: flex-end;
-  gap: 10px;
-  width: 100%;
 }
 
 .quotes__header-random {

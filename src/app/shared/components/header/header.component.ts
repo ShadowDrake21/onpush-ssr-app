@@ -1,16 +1,16 @@
 import { Component } from '@angular/core';
-import { MenuItem } from 'primeng/api';
-import { MenubarModule } from 'primeng/menubar';
+import { IMenuItem } from '../../models/navbar.model';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [MenubarModule],
+  imports: [RouterLink],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
 })
 export class HeaderComponent {
-  menuItems: MenuItem[] = [
+  menuItems: IMenuItem[] = [
     { label: 'Main', routerLink: '/main' },
     { label: 'Todos', routerLink: '/todos' },
     { label: 'Quotes', routerLink: '/quotes' },

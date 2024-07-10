@@ -1,8 +1,3 @@
-.todos-top {
-  display: flex;
-  gap: 10px;
-}
-
 .todos-list {
   padding-top: 30px;
   display: flex;

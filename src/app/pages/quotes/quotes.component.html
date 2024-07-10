@@ -1,78 +1,86 @@
 <section class="section quotes">
-  <div class="quotes__innter">
+  <div class="quotes__inner">
     <div class="quotes__header">
-      <div class="quotes__header-custom">
+      <div class="flex items-end gap-3 w-full">
         <div class="quotes__header-custom__input-wrapper">
-          <label for="username">Personal quote</label>
+          <label
+            for="customeQuote"
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white text-center"
+            >Personal quote</label
+          >
           <input
-            pInputText
-            id="customeQuote"
             type="text"
-            class="quotes__header-custom__input"
+            id="customeQuote"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Sukces wymaga poświęceń. Poświęcenia oznaczają ból. Ból oznacza sukces."
+            required
             [(ngModel)]="customQuote"
           />
         </div>
-        <div>
-          <p-button
-            label="Create"
-            icon="pi pi-check"
-            class="full-btn p-button"
-          />
-        </div>
+        <button
+          type="button"
+          class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+        >
+          Create
+        </button>
       </div>
-      <div class="quotes__header-random__wrapper">
-        <label style="display: block; padding-bottom: 8px">Random quote</label>
-        <div class="quotes__header-random">
-          <p-button
-            [label]="actionTitle"
-            icon="pi pi-check"
-            class="full-btn p-button"
+      <div class="flex flex-col items-center">
+        <label
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >Random quote</label
+        >
+        <div class="flex gap-3 items-end">
+          <button
+            type="button"
+            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
             (onClick)="onFetchRandom()"
-          />
-          <p-dropdown
-            [options]="generateItemsCount(10)"
+          >
+            {{ actionTitle }}
+          </button>
+
+          <select
+            id="countries"
+            class="w-20 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             [(ngModel)]="selectedRandomCount"
-            optionLabel="label"
-            placeholder="Select a
-    Count"
-          />
+            (change)="onFetchRandom()"
+          >
+            @for (item of generateItemsCount(10); track $index) {
+            <option [value]="item">{{ item }}</option>
+            }
+          </select>
         </div>
       </div>
     </div>
     <div *ngIf="quotes$ | async as quotes">
-      <p-dataView #dv [value]="quotes">
-        <ng-template pTemplate="list" let-quotes>
-          <div class="grid grid-nogutter">
+      <div class="grid grid-nogutter">
+        <div
+          class="col-12"
+          *ngFor="let quote of quotes; let first = first"
+          class="col-12"
+        >
+          <div
+            class="flex flex-column sm:flex-row sm:align-items-center p-4 gap-3"
+            [ngClass]="{ 'border-top-1 surface-border': !first }"
+          >
             <div
-              class="col-12"
-              *ngFor="let quote of quotes; let first = first"
-              class="col-12"
+              class="flex flex-column md:flex-row justify-content-between md:align-items-center flex-1 gap-4"
             >
               <div
-                class="flex flex-column sm:flex-row sm:align-items-center p-4 gap-3"
-                [ngClass]="{ 'border-top-1 surface-border': !first }"
+                class="flex flex-row md:flex-column justify-content-between align-items-start gap-2"
               >
-                <div
-                  class="flex flex-column md:flex-row justify-content-between md:align-items-center flex-1 gap-4"
-                >
-                  <div
-                    class="flex flex-row md:flex-column justify-content-between align-items-start gap-2"
-                  >
-                    <div>
-                      <span class="font-medium text-secondary text-sm">{{
-                        quote.quote
-                      }}</span>
-                      <div class="text-lg font-medium text-900 mt-2">
-                        {{ quote.author }}
-                      </div>
-                    </div>
+                <div>
+                  <span class="font-medium text-secondary text-sm">{{
+                    quote.quote
+                  }}</span>
+                  <div class="text-lg font-medium text-900 mt-2">
+                    {{ quote.author }}
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </ng-template>
-      </p-dataView>
+        </div>
+      </div>
     </div>
   </div>
 </section>
