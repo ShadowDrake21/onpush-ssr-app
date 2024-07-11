@@ -1,6 +1,6 @@
 <section class="section quotes">
   <div class="quotes__inner">
-    <div class="quotes__header">
+    <div class="quotes__header mb-10">
       <div class="flex items-end gap-3 w-full">
         <div class="quotes__header-custom__input-wrapper">
           <label
@@ -53,8 +53,16 @@
         </div>
       </div>
     </div>
-    <div class="relative mt-10 overflow-x-auto shadow-md sm:rounded-lg">
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
       @if ((quotes$ | async)?.length) { @if (quotes$ | async; as quotes) {
+      <div class="text-right">
+        <button
+          class="text-purple-700 hover:text-white border border-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-purple-400 dark:text-purple-400 dark:hover:text-white dark:hover:bg-purple-500 dark:focus:ring-purple-900"
+          (click)="onTableDownload()"
+        >
+          <fa-icon [icon]="faDownload"></fa-icon>
+        </button>
+      </div>
       <table
         class="w-full text-sm text-center rtl:text-right text-gray-500 dark:text-gray-400"
         #quotesTable
@@ -86,7 +94,8 @@
                 class="w-full"
                 type="text"
                 [value]="quote.quote"
-                (input)="onChangeQuoteText($event, quote.id)"
+                (input)="onChangeQuoteField($event, quote.id, 'quote')"
+                (keydown.enter)="editQuote = null"
               />} @else{{{ quote.quote}}}
             </td>
             <td class="px-6 py-4">
@@ -94,11 +103,14 @@
                 class="w-full"
                 type="text"
                 [value]="quote.author"
+                (input)="onChangeQuoteField($event, quote.id, 'author')"
+                (keydown.enter)="editQuote = null"
               />} @else{{{ quote.author}}}
             </td>
             <td class="px-6 py-4 flex flex-col gap-1">
               <button
                 class="h-full font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                [ngClass]="{ 'bg-sky-200': editQuote }"
                 (click)="editQuote = editQuote === quote.id ? null : quote.id"
               >
                 {{ editQuote === quote.id ? "Update" : "Edit" }}

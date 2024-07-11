@@ -1,5 +1,4 @@
 import {
-  AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -11,24 +10,11 @@ import {
 import { ApiService } from '../../core/services/api.service';
 import { FormsModule } from '@angular/forms';
 import { generateItemsCount } from '../../shared/utils/select.utils';
-import {
-  BehaviorSubject,
-  concatMap,
-  delay,
-  EMPTY,
-  filter,
-  map,
-  Observable,
-  of,
-  shareReplay,
-  Subscription,
-  switchMap,
-  tap,
-} from 'rxjs';
+import { BehaviorSubject, delay, shareReplay, Subscription, tap } from 'rxjs';
 import { IQuote } from '../../shared/models/quote.model';
 import { AsyncPipe, NgClass, NgFor, NgIf } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faDownload, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { faEdit } from '@fortawesome/free-regular-svg-icons';
 
 @Component({
@@ -39,9 +25,10 @@ import { faEdit } from '@fortawesome/free-regular-svg-icons';
   styleUrl: './quotes.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class QuotesComponent implements AfterViewInit, OnDestroy {
+export class QuotesComponent implements OnDestroy {
   faTrash = faTrash;
   faEdit = faEdit;
+  faDownload = faDownload;
 
   @ViewChild('quotesTable') table!: ElementRef<HTMLTableElement>;
 
@@ -102,20 +89,30 @@ export class QuotesComponent implements AfterViewInit, OnDestroy {
     this.cdRef.markForCheck();
   }
 
-  ngAfterViewInit(): void {
-    // const quotesTable = this.table.nativeElement;
-  }
-
-  onChangeQuoteText(event: Event, quoteId: number) {
+  onChangeQuoteField(event: Event, quoteId: number, field: keyof IQuote) {
     const allQuotes = this.quotes$$.getValue();
-    const updatedQuoteText = (event.target as HTMLInputElement).value;
+    const updatedField = (event.target as HTMLInputElement).value;
+
+    console.log('field', field, 'updated field', updatedField);
 
     const updatedQuotes = allQuotes.map((quote) =>
-      quote.id === quoteId ? { ...quote, quote: updatedQuoteText } : quote
+      quote.id === quoteId ? { ...quote, [field]: updatedField } : quote
     );
+
+    console.log('updated quotes', updatedQuotes);
 
     this.quotes$$.next(updatedQuotes);
     this.cdRef.markForCheck();
+  }
+
+  onTableDownload() {
+    const a = document.createElement('a');
+    const file = new Blob([JSON.stringify(this.quotes$$.getValue())], {
+      type: 'text/plain',
+    });
+    a.href = URL.createObjectURL(file);
+    a.download = 'table.json';
+    a.click();
   }
 
   generateItemsCount = generateItemsCount;
