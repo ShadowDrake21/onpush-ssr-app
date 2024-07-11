@@ -1,1 +1,135 @@
-<p>users works!</p>
+<section class="section">
+  <button
+    type="button"
+    class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+    (click)="onFetchSingleUser()"
+  >
+    Fetch
+  </button>
+  <div class="flex justify-center pt-10">
+    @if(user$ | async; as user) {
+    <div
+      class="w-full max-w-full p-4 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+    >
+      <div class="flex flex-col items-center py-10 w-full">
+        <img
+          class="w-28 h-28 mb-3 rounded-full shadow-lg"
+          [src]="user.image"
+          alt="Bonnie image"
+        />
+        <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">
+          {{ user.firstName }} {{ user.lastName }}
+          {{ user.maidenName && "(" + user.maidenName + ")" }}
+        </h5>
+        <h6 class="font-bold pb-1">{{ "@" + user.username }}</h6>
+        <span class="text-sm text-gray-500 dark:text-gray-400"
+          >{{ user.company.title }} in {{ user.company.name }}</span
+        >
+        <span class="text-sm text-gray-500 dark:text-gray-400">{{
+          user.company.address.city
+        }}</span>
+        <div class="flex mt-4 md:mt-6">
+          <button
+            class="text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-8000"
+            (click)="onFetchSingleUser()"
+          >
+            Regenerate
+          </button>
+          <button
+            class="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
+            (click)="onDeleteUser()"
+          >
+            Remove
+          </button>
+        </div>
+      </div>
+      <div class="flex text-center">
+        <div class="w-full">
+          <h4 class="font-bold pb-2">Basic info:</h4>
+          <p class="text-base text-gray-500 dark:text-gray-400">
+            <span class="text-black">Age:</span> {{ user.age }} years
+          </p>
+          <p class="text-base text-gray-500 dark:text-gray-400">
+            <span class="text-black">Birthday:</span>
+            {{ user.birthDate | date : "longDate" }}
+          </p>
+          <p class="text-base text-gray-500 dark:text-gray-400">
+            <span class="text-black">Email:</span> {{ user.email }}
+          </p>
+          <p class="text-base text-gray-500 dark:text-gray-400">
+            <span class="text-black">Gender:</span> {{ user.gender }}
+          </p>
+          <p class="text-base text-gray-500 dark:text-gray-400">
+            <span class="text-black">Phone:</span> {{ user.phone }}
+          </p>
+          <p class="text-base text-gray-500 dark:text-gray-400">
+            <span class="text-black">University:</span> {{ user.university }}
+          </p>
+          <p class="text-base text-gray-500 dark:text-gray-400">
+            <span class="text-black">IP:</span> {{ user.ip }}
+          </p>
+        </div>
+        <div class="w-full">
+          <h4 class="font-bold pb-2">Appereance:</h4>
+          <p class="text-base text-gray-500 dark:text-gray-400">
+            <span class="text-black">Hair:</span> {{ user.hair.type }}
+            {{ user.hair.color }}
+          </p>
+          <p class="text-base text-gray-500 dark:text-gray-400">
+            <span class="text-black">Height:</span> {{ user.height }} sm
+          </p>
+          <p class="text-base text-gray-500 dark:text-gray-400">
+            Eye color: {{ user.eyeColor }}
+          </p>
+        </div>
+        <div class="w-full">
+          <h4 class="font-bold pb-2">Bank:</h4>
+          <p class="text-base text-gray-500 dark:text-gray-400">
+            <span class="text-black">Card details:</span>
+            {{ user.bank.cardType }}, {{ user.bank.cardNumber }},
+            {{ user.bank.cardExpire }}, in {{ user.bank.currency }}
+          </p>
+          <p class="text-base text-gray-500 dark:text-gray-400">
+            <span class="text-black">Iban:</span> {{ user.bank.iban }}
+          </p>
+          <p class="text-base text-gray-500 dark:text-gray-400">
+            <span class="text-black">Crypto:</span> {{ user.crypto.coin }} in
+            {{ user.crypto.wallet }}
+            {{ user.crypto.network }}
+          </p>
+        </div>
+        <div class="w-full">
+          <h4 class="font-bold pb-2">Address:</h4>
+          <p class="text-base text-gray-500 dark:text-gray-400">
+            <span class="text-black">Address:</span> {{ user.address.address }}
+          </p>
+          <p class="text-base text-gray-500 dark:text-gray-400">
+            <span class="text-black">City:</span> {{ user.address.city }},
+            {{ user.address.country }}
+          </p>
+          <p class="text-base text-gray-500 dark:text-gray-400">
+            <span class="text-black">State:</span> {{ user.address.state }},
+            {{ user.address.stateCode }}
+          </p>
+          <p class="text-base text-gray-500 dark:text-gray-400">
+            <span class="text-black">Postal code:</span>
+            {{ user.address.postalCode }}
+          </p>
+          <p class="text-base text-gray-500 dark:text-gray-400">
+            <span class="text-black">City:</span> {{ user.address.city }},
+            {{ user.address.country }}
+          </p>
+          <p class="text-base text-gray-500 dark:text-gray-400">
+            <span class="text-black">State:</span> {{ user.address.state }},
+            {{ user.address.stateCode }}
+          </p>
+          <p class="text-base text-gray-500 dark:text-gray-400">
+            <span class="text-black">Postal code:</span>
+            {{ user.address.postalCode }}
+          </p>
+        </div>
+      </div>
+    </div>
+    }
+  </div>
+</section>

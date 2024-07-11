@@ -93,13 +93,9 @@ export class QuotesComponent implements OnDestroy {
     const allQuotes = this.quotes$$.getValue();
     const updatedField = (event.target as HTMLInputElement).value;
 
-    console.log('field', field, 'updated field', updatedField);
-
     const updatedQuotes = allQuotes.map((quote) =>
       quote.id === quoteId ? { ...quote, [field]: updatedField } : quote
     );
-
-    console.log('updated quotes', updatedQuotes);
 
     this.quotes$$.next(updatedQuotes);
     this.cdRef.markForCheck();
