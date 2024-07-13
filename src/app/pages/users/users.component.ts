@@ -15,14 +15,36 @@ import {
 import { ApiService } from '../../core/services/api.service';
 import { EMPTY, map, Observable, of, tap } from 'rxjs';
 import { IUser } from '../../shared/models/user.model';
-import { AsyncPipe, DatePipe, JsonPipe } from '@angular/common';
+import { AsyncPipe, DatePipe, JsonPipe, NgClass } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import {
+  animate,
+  keyframes,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
 @Component({
   selector: 'app-users',
   standalone: true,
-  imports: [AsyncPipe, JsonPipe, DatePipe],
+  imports: [AsyncPipe, JsonPipe, DatePipe, NgClass],
   templateUrl: './users.component.html',
   styleUrl: './users.component.css',
+  animations: [
+    trigger('pulsation', [
+      transition('* => *', [
+        animate(
+          '1s',
+          keyframes([
+            style({ transform: 'scale(1)', offset: 0 }),
+            style({ transform: 'scale(1.2)', offset: 0.5 }),
+            style({ transform: 'scale(1)', offset: 1 }),
+          ])
+        ),
+      ]),
+    ]),
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UsersComponent implements OnInit, AfterViewInit {
@@ -35,40 +57,56 @@ export class UsersComponent implements OnInit, AfterViewInit {
   user$!: Observable<IUser>;
 
   loadingSig = signal<boolean>(false);
+  animateStateSig = signal<string>('start');
 
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     if (this.movingElement) {
-      const el = this.movingElement.nativeElement;
-
-      let isDragging = false;
-      let offsetX = 0;
-      let offsetY = 0;
-      // add animation
-      el.addEventListener('mousedown', (event: MouseEvent) => {
-        isDragging = true;
-
-        offsetX = (event.clientX - el.getBoundingClientRect().left) / 2;
-        offsetY = event.clientY - el.getBoundingClientRect().top;
-
-        document.addEventListener('mousemove', onMouseMove);
-        document.addEventListener('mouseup', onMouseUp);
-      });
-
-      const onMouseMove = (event: MouseEvent) => {
-        if (isDragging) {
-          el.style.top = `${event.clientY - offsetY * 2}px`;
-          el.style.left = `${event.clientX - offsetX - 120}px`;
-        }
-      };
-
-      const onMouseUp = () => {
-        isDragging = false;
-        document.removeEventListener('mousemove', onMouseMove);
-        document.removeEventListener('mouseup', onMouseUp);
-      };
+      this.initializeDraggable(this.movingElement.nativeElement);
     }
+    this.startAnimationLoop();
+  }
+
+  private initializeDraggable(element: HTMLElement) {
+    let pos1 = 0,
+      pos2 = 0,
+      pos3 = 0,
+      pos4 = 0;
+
+    const dragMouseDown = (event: MouseEvent) => {
+      event.preventDefault();
+      pos3 = event.clientX;
+      pos4 = event.clientY;
+      document.onmouseup = closeDragElement;
+      document.onmousemove = elementDrag;
+    };
+
+    const elementDrag = (event: MouseEvent) => {
+      event.preventDefault();
+      pos1 = pos3 - event.clientX;
+      pos2 = pos4 - event.clientY;
+      pos3 = event.clientX;
+      pos4 = event.clientY;
+
+      element.style.top = element.offsetTop - pos2 + 'px';
+      element.style.left = element.offsetLeft - pos1 + 'px';
+    };
+
+    const closeDragElement = () => {
+      document.onmouseup = null;
+      document.onmousemove = null;
+    };
+
+    element.onmousedown = dragMouseDown;
+  }
+
+  private startAnimationLoop() {
+    setInterval(() => {
+      this.animateStateSig.set(
+        this.animateStateSig() === 'start' ? 'end' : 'start'
+      );
+    }, 1000);
   }
 
   onFetchSingleUser() {
@@ -83,9 +121,5 @@ export class UsersComponent implements OnInit, AfterViewInit {
       .subscribe();
 
     this.cdr.markForCheck();
-  }
-
-  onDeleteUser() {
-    this.user$ = EMPTY;
   }
 }

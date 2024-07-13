@@ -1,0 +1,10 @@
+.empty__wrapper:hover::after {
+  position: absolute;
+  content: "";
+  width: 40px;
+  height: 40px;
+  background-image: url("/assets/icons/move.svg");
+  background-size: contain;
+  right: -40px;
+  top: 0;
+}

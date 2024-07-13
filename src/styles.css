@@ -8,15 +8,16 @@
   box-sizing: border-box;
 }
 
+html {
+  padding: 0;
+  bottom: 0;
+}
+
 body {
   padding: 0;
   margin: 0;
   background-color: #f5f7f8;
-}
-
-html {
-  padding: 0;
-  bottom: 0;
+  overflow: hidden;
 }
 
 .container {
