@@ -1,0 +1,8 @@
+.main-link {
+  transform: translateX(0);
+  transition: transform 0.3s;
+}
+
+.main-link:hover {
+  transform: translateX(25px);
+}
