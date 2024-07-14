@@ -25,10 +25,11 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
+import { ReusableCardComponent } from '../../shared/components/reusable-card/reusable-card.component';
 @Component({
   selector: 'app-users',
   standalone: true,
-  imports: [AsyncPipe, JsonPipe, DatePipe, NgClass],
+  imports: [AsyncPipe, JsonPipe, DatePipe, NgClass, ReusableCardComponent],
   templateUrl: './users.component.html',
   styleUrl: './users.component.css',
   animations: [

@@ -5,6 +5,7 @@ import { API_BASE_URL, FETCH_BASE_URL } from '../constants/api.constants';
 import { ITodo } from '../../shared/models/todo.model';
 import { IQuote } from '../../shared/models/quote.model';
 import { IUser } from '../../shared/models/user.model';
+import { IRecipe, IRecipeWithAddInfo } from '../../shared/models/recipe.model';
 
 @Injectable({ providedIn: 'root' })
 export class ApiService {
@@ -18,7 +19,13 @@ export class ApiService {
     return this.http.get<IQuote[]>(`${API_BASE_URL}quotes/random/${count}`);
   }
 
-  getSingleUser(id: number) {
+  getSingleUser(id: number): Observable<IUser> {
     return this.http.get<IUser>(`${API_BASE_URL}users/${id}`);
+  }
+
+  searchRecipe(query: string): Observable<IRecipeWithAddInfo> {
+    return this.http.get<IRecipeWithAddInfo>(`${API_BASE_URL}recipes/search`, {
+      params: new HttpParams().append('q', query),
+    });
   }
 }
