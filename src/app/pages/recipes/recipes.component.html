@@ -8,7 +8,7 @@
     <input
       type="text"
       id="customeQuote"
-      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+      [class]="inputClasses"
       placeholder="Margherita"
       required
       [formControl]="searchTermControl"
@@ -31,20 +31,18 @@
           {{ recipe.name }} | {{ recipe.mealType }} | {{ recipe.cuisine }}
         </h5>
         <h6 class="font-bold pb-1">Difficulty: {{ recipe.difficulty }}</h6>
-        <span class="text-sm text-gray-500 dark:text-gray-400 pb-2"
+        <span [class]="recipesSpanClasses"
           >Cook time: {{ recipe.cookTimeMinutes }} | Prep time:
           {{ recipe.prepTimeMinutes }}</span
         >
-        <span class="text-sm text-gray-500 dark:text-gray-400 pb-2"
-          >Rating: {{ recipe.rating }}</span
-        >
-        <span class="text-sm text-gray-500 dark:text-gray-400 pb-2"
+        <span [class]="recipesSpanClasses">Rating: {{ recipe.rating }}</span>
+        <span [class]="recipesSpanClasses"
           >Servings: {{ recipe.servings }}</span
         >
-        <span class="text-sm text-gray-500 dark:text-gray-400 pb-2"
+        <span [class]="recipesSpanClasses"
           >Reviews: {{ recipe.reviewCount }}</span
         >
-        <span class="text-sm text-gray-500 dark:text-gray-400 pb-2"
+        <span [class]="recipesSpanClasses"
           >Calories: {{ recipe.caloriesPerServing }}</span
         >
       </div>
@@ -103,12 +101,12 @@
       $index) {
       <li>
         <button
-          class="transition-all duration-300 flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+          class="transition-all duration-300 flex items-center justify-center px-3 h-8 leading-tight border border-gray-300 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
           (click)="changePaginationPage(pageCount)"
           [ngClass]="{
             'bg-slate-400 text-white hover:bg-stone-500 hover:text-white':
               pageCount === currentPaginationPagesSig(),
-              'hover:bg-gray-100 hover:text-gray-700' : pageCount !== currentPaginationPagesSig(),
+              'text-gray-500 bg-white hover:bg-gray-100 hover:text-gray-700' : pageCount !== currentPaginationPagesSig(),
           }"
         >
           {{ pageCount }}
@@ -117,7 +115,6 @@
       }
       <li>
         <button
-          href="#"
           class="transition-all duration-300 flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white disabled:text-gray-500 disabled:bg-slate-100 disabled:hover:bg-slate-100"
           (click)="onNextOrPrevPage('next')"
           [disabled]="

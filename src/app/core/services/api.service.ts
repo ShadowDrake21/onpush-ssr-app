@@ -1,11 +1,11 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { API_BASE_URL, FETCH_BASE_URL } from '../constants/api.constants';
-import { ITodo } from '../../shared/models/todo.model';
-import { IQuote } from '../../shared/models/quote.model';
-import { IUser } from '../../shared/models/user.model';
-import { IRecipe, IRecipeWithAddInfo } from '../../shared/models/recipe.model';
+import { API_BASE_URL } from '../constants/api.constants';
+import { ITodo } from '@shared/models/todo.model';
+import { IQuote } from '@shared/models/quote.model';
+import { IUser } from '@shared/models/user.model';
+import { IRecipeWithAddInfo } from '@shared/models/recipe.model';
 
 @Injectable({ providedIn: 'root' })
 export class ApiService {

@@ -5,23 +5,23 @@ import {
   OnInit,
   signal,
 } from '@angular/core';
-import { ApiService } from '../../core/services/api.service';
+import { ApiService } from '@services/api.service';
 import {
-  combineLatest,
   debounceTime,
   distinctUntilChanged,
   filter,
   Observable,
-  of,
   shareReplay,
   startWith,
   switchMap,
   tap,
 } from 'rxjs';
-import { IRecipe, IRecipeWithAddInfo } from '../../shared/models/recipe.model';
-import { ReusableCardComponent } from '../../shared/components/reusable-card/reusable-card.component';
+import { IRecipe, IRecipeWithAddInfo } from '@shared/models/recipe.model';
+import { ReusableCardComponent } from '@shared/components/reusable-card/reusable-card.component';
 import { AsyncPipe, JsonPipe, NgClass } from '@angular/common';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { fromNumberToArr } from '@shared/utils/array.utils';
+import { inputClasses, recipesSpanClasses } from '@shared/classes/ui.classes';
 
 @Component({
   selector: 'app-recipes',
@@ -39,6 +39,9 @@ import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RecipesComponent implements OnInit {
+  inputClasses = inputClasses;
+  recipesSpanClasses = recipesSpanClasses;
+
   private apiService = inject(ApiService);
 
   recipesWithInfo$!: Observable<IRecipeWithAddInfo>;
@@ -51,8 +54,6 @@ export class RecipesComponent implements OnInit {
   totalRecipes: number = 0;
 
   ngOnInit(): void {
-    this.recipesWithInfo$ = this.apiService.searchRecipe('margherita');
-
     this.searchRecipe();
   }
 
@@ -111,7 +112,5 @@ export class RecipesComponent implements OnInit {
     }
   }
 
-  fromNumberToArr(number: number): number[] {
-    return Array.from({ length: Math.round(number) }, (_, i) => i + 1);
-  }
+  fromNumberToArr = fromNumberToArr;
 }

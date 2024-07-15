@@ -7,20 +7,29 @@ import {
   OnDestroy,
   ViewChild,
 } from '@angular/core';
-import { ApiService } from '../../core/services/api.service';
+import { ApiService } from '@services/api.service';
 import { FormsModule } from '@angular/forms';
-import { generateItemsCount } from '../../shared/utils/select.utils';
+import { generateItemsCount } from '@shared/utils/select.utils';
 import { BehaviorSubject, delay, shareReplay, Subscription, tap } from 'rxjs';
-import { IQuote } from '../../shared/models/quote.model';
+import { IQuote } from '@shared/models/quote.model';
 import { AsyncPipe, NgClass, NgFor, NgIf } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faDownload, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { faEdit } from '@fortawesome/free-regular-svg-icons';
+import { ListSkeletonComponent } from '@shared/components/list-skeleton/list-skeleton.component';
 
 @Component({
   selector: 'app-quotes',
   standalone: true,
-  imports: [FormsModule, NgIf, NgFor, NgClass, AsyncPipe, FontAwesomeModule],
+  imports: [
+    FormsModule,
+    NgIf,
+    NgFor,
+    NgClass,
+    AsyncPipe,
+    FontAwesomeModule,
+    ListSkeletonComponent,
+  ],
   templateUrl: './quotes.component.html',
   styleUrl: './quotes.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

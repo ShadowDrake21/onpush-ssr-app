@@ -6,9 +6,6 @@
   gap: 40px;
 }
 
-.quotes__header-custom {
-}
-
 .quotes__header-random {
   display: flex;
   gap: 10px;

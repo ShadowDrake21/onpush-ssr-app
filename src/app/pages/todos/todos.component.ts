@@ -7,12 +7,9 @@ import {
   OnDestroy,
   ViewChild,
 } from '@angular/core';
-import { ApiService } from '../../core/services/api.service';
-
+import { ApiService } from '@services/api.service';
 import { FormsModule } from '@angular/forms';
-
 import { AsyncPipe, JsonPipe, NgClass } from '@angular/common';
-
 import {
   BehaviorSubject,
   EMPTY,
@@ -24,9 +21,10 @@ import {
   switchMap,
   tap,
 } from 'rxjs';
-import { ITodo } from '../../shared/models/todo.model';
+import { ITodo } from '@shared/models/todo.model';
 import { animate, style, transition, trigger } from '@angular/animations';
-import { generateItemsCount } from '../../shared/utils/select.utils';
+import { generateItemsCount } from '@shared/utils/select.utils';
+import { getRandomPosition } from '@shared/utils/math.utils';
 
 @Component({
   selector: 'app-todos',
@@ -132,13 +130,16 @@ export class TodosComponent implements OnDestroy {
 
     if (section) {
       let imgObj: HTMLImageElement = document.createElement('img');
-      imgObj.style.position = 'absolute';
-      imgObj.style.zIndex = '100';
-      imgObj.style.width = '80px';
-      imgObj.style.height = '80px';
-      imgObj.style.top = this.getRandomPosition(0, sectionHeight - 80) + 'px';
-      imgObj.style.left = this.getRandomPosition(0, sectionWidth - 80) + 'px';
-      imgObj.style.transition = 'transform 1s ease-out, opacity 1s ease-in 1s';
+
+      Object.assign(imgObj.style, {
+        position: 'absolute',
+        zIndex: '100',
+        width: '80px',
+        height: '80px',
+        top: this.getRandomPosition(0, sectionHeight - 80) + 'px',
+        left: this.getRandomPosition(0, sectionWidth - 80) + 'px',
+        transition: 'transform 1s ease-out, opacity 1s ease-in 1s',
+      });
 
       if (type === 'regenerate') {
         imgObj.src = '/assets/images/laugh.png';
@@ -160,9 +161,7 @@ export class TodosComponent implements OnDestroy {
     }
   }
 
-  private getRandomPosition(min: number, max: number) {
-    return Math.random() * (max - min) + min;
-  }
+  getRandomPosition = getRandomPosition;
 
   ngOnDestroy(): void {
     if (this.regenerateSubscription) {
