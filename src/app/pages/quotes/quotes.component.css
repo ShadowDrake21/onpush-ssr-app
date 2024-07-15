@@ -1,0 +1,40 @@
+.quotes__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding-top: 10px;
+  gap: 40px;
+}
+
+.quotes__header-random {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+}
+
+.quotes__header-random__wrapper {
+  width: 100%;
+}
+
+.quotes__header-custom__input-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.quotes__header-custom__input {
+  width: 100%;
+}
+
+@media (max-width: 920px) {
+  .quotes__header {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .quotes__header-random {
+    width: 100%;
+  }
+}

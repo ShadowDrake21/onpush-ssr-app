@@ -1,0 +1,138 @@
+<section class="section">
+  <div class="pb-5">
+    <label
+      for="customeQuote"
+      class="block mb-2 text-sm font-medium text-gray-900 dark:text-white text-center"
+      >Search recipe</label
+    >
+    <input
+      type="text"
+      id="customeQuote"
+      [class]="inputClasses"
+      placeholder="Margherita"
+      required
+      [formControl]="searchTermControl"
+    />
+  </div>
+  @if (recipesWithInfo$ | async) {
+  <div class="pb-3">
+    <p><span class="font-bold">Total recipes: </span> {{ totalRecipes }}</p>
+  </div>
+  <div class="flex flex-col gap-5">
+    @for (recipe of visibleRecipes(); track recipe.id) {
+    <app-reusable-card>
+      <div
+        class="flex flex-col items-center py-3 w-full text-center lg:text-left"
+      >
+        <img
+          class="w-28 h-28 mb-3 rounded-full shadow-lg"
+          [src]="recipe.image"
+          alt="Bonnie image"
+        />
+        <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">
+          {{ recipe.name }} | {{ recipe.mealType }} | {{ recipe.cuisine }}
+        </h5>
+        <h6 class="font-bold pb-1">Difficulty: {{ recipe.difficulty }}</h6>
+        <span [class]="recipesSpanClasses"
+          >Cook time: {{ recipe.cookTimeMinutes }} | Prep time:
+          {{ recipe.prepTimeMinutes }}</span
+        >
+        <span [class]="recipesSpanClasses">Rating: {{ recipe.rating }}</span>
+        <span [class]="recipesSpanClasses"
+          >Servings: {{ recipe.servings }}</span
+        >
+        <span [class]="recipesSpanClasses"
+          >Reviews: {{ recipe.reviewCount }}</span
+        >
+        <span [class]="recipesSpanClasses"
+          >Calories: {{ recipe.caloriesPerServing }}</span
+        >
+      </div>
+      <hr class="my-3" />
+      <div
+        class="flex text-center max-h-80 h-full overflow-y-auto flex-col lg:flex-row gap-4 lg:gap-0"
+      >
+        <div class="w-full">
+          <h4 class="font-bold pb-2">Ingredients:</h4>
+          <ul>
+            @for (ingredient of recipe.ingredients; track ingredient; let index
+            = $index) {
+            <li class="pb-2">{{ index + 1 }}. {{ ingredient }}</li>
+            }
+          </ul>
+        </div>
+        <div class="w-full">
+          <h4 class="font-bold pb-2">Instructions:</h4>
+          <ul>
+            @for (instruction of recipe.instructions; track instruction; let
+            index = $index) {
+            <li class="pb-2">{{ index + 1 }}. {{ instruction }}</li>
+            }
+          </ul>
+        </div>
+        <div class="w-full">
+          <h4 class="font-bold pb-2">Instructions:</h4>
+          <ul>
+            @for (tag of recipe.tags; track tag;let index = $index) {
+            <li class="pb-2">{{ index + 1 }}. {{ tag }}</li>
+            }
+          </ul>
+        </div>
+      </div> </app-reusable-card
+    >} @empty {
+    <h3
+      class="absolute top-1/2 left-1/2 text-xl font-bold"
+      style="transform: translate(-50%, -50%)"
+    >
+      Sorry, but we don't know such a dish
+    </h3>
+    }
+  </div>
+  @if (totalRecipes > 2) {
+  <nav class="flex justify-center pt-5">
+    <ul class="inline-flex -space-x-px text-sm">
+      <li>
+        <button
+          href="#"
+          class="transition-all duration-300 flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white disabled:text-gray-500 disabled:bg-slate-100 disabled:hover:bg-slate-100"
+          (click)="onNextOrPrevPage('prev')"
+          [disabled]="currentPaginationPagesSig() === 1"
+        >
+          Previous
+        </button>
+      </li>
+      @for (pageCount of fromNumberToArr(totalRecipes / recipesPerPage); track
+      $index) {
+      <li>
+        <button
+          class="transition-all duration-300 flex items-center justify-center px-3 h-8 leading-tight border border-gray-300 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+          (click)="changePaginationPage(pageCount)"
+          [ngClass]="{
+            'bg-slate-400 text-white hover:bg-stone-500 hover:text-white':
+              pageCount === currentPaginationPagesSig(),
+              'text-gray-500 bg-white hover:bg-gray-100 hover:text-gray-700' : pageCount !== currentPaginationPagesSig(),
+          }"
+        >
+          {{ pageCount }}
+        </button>
+      </li>
+      }
+      <li>
+        <button
+          class="transition-all duration-300 flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white disabled:text-gray-500 disabled:bg-slate-100 disabled:hover:bg-slate-100"
+          (click)="onNextOrPrevPage('next')"
+          [disabled]="
+            currentPaginationPagesSig() * recipesPerPage > totalRecipes
+          "
+        >
+          Next
+        </button>
+      </li>
+    </ul>
+  </nav>
+  }} @else {
+  <div class="flex justify-center py-10">
+    <img src="/assets/images/recipes.webp" alt="recipes img" />
+  </div>
+  }
+</section>

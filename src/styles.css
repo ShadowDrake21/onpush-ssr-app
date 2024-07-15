@@ -1,1 +1,72 @@
-/* You can add global styles to this file, and also import other style files */
+@import url("./responsive.css");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+html {
+  padding: 0;
+  bottom: 0;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  background-color: #f5f7f8;
+  overflow: auto;
+}
+
+.container {
+  max-width: 1200px;
+  padding: 0 10px;
+  margin: 20px auto;
+}
+
+.relative {
+  position: relative;
+}
+
+.section {
+  background-color: #fff;
+  min-height: calc(100vh - 140px);
+  margin: 20px 0;
+  padding: 20px 20px 70px;
+}
+
+.full-btn {
+  width: 100%;
+}
+
+.full-btn button {
+  width: 100%;
+}
+
+.todo .p-card {
+  background-color: #f5f5f593;
+}
+
+.todo .p-card .p-card-body {
+  padding: 0.6rem;
+}
+
+.todo .p-card .p-card-title {
+  font-size: 1rem;
+  margin-bottom: 0.25rem;
+  text-align: center;
+}
+
+.todo .todo-btns {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.todo .todo-btns .p-button {
+  font-size: 0.75rem;
+}

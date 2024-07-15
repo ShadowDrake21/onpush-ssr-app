@@ -1,0 +1,39 @@
+.todos-list {
+  padding-top: 30px;
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.todo-wrapper {
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.todo-wrapper:hover {
+  box-shadow: 4px 5px 34px -4px rgba(0, 0, 0, 0.96);
+}
+
+.todo-inner {
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+.todo-btn {
+  font-weight: 600;
+  color: #fff;
+  outline: none;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.todo-btn.completed {
+  background-color: green;
+}
+
+.todo-btn.incomplited {
+  background-color: red;
+}

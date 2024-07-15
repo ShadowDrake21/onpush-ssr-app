@@ -1,0 +1,88 @@
+<section #todos class="section">
+  <div>
+    <div class="flex gap-3 items-end">
+      <button
+        type="button"
+        class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+        (click)="onTodosFetch()"
+      >
+        {{ actionTitle$$.getValue() }}
+      </button>
+      <div>
+        <label
+          for="countries"
+          class="block mb-2 text-sm text-center font-medium text-gray-900 dark:text-white"
+          >Count</label
+        >
+        <select
+          id="countries"
+          class="w-20 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          [(ngModel)]="selectedRandomCount"
+          (change)="onTodosFetch()"
+        >
+          @for (item of generateItemsCount(10); track $index) { @if (item ===
+          selectedRandomCount) {
+          <option selected [value]="item">{{ item }}</option>
+          } @else {
+          <option [value]="item">{{ item }}</option>
+          } }
+        </select>
+      </div>
+    </div>
+
+    <div class="todos-list">
+      @for (todo of todos$ | async; track todo.id) {
+      <div class="todo-wrapper max-w-full w-full md:max-w-auto md:w-auto">
+        <div
+          class="max-w-full md:max-w-sm w-full text-center md:text-left p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+        >
+          <p>{{ "Todo Card #" + todo.id }}</p>
+
+          <h6
+            class="mb-2 text-lg font-bold tracking-tight text-gray-900 dark:text-white"
+          >
+            {{ todo.todo }}
+          </h6>
+          <div
+            class="flex justify-between items-center gap-5 w-full flex-col md:flex-row"
+          >
+            <span
+              style="font-weight: 600"
+              class="w-full flex flex-col gap-2 text-center md:block"
+            >
+              Status:
+              <button
+                type="button"
+                class="todo-btn w-full md:w-auto"
+                [ngClass]="{
+                  completed: todo.completed,
+                  incomplited: !todo.completed
+                }"
+                (click)="onToggleCompleteness(todo.id)"
+              >
+                {{ todo.completed ? "completed" : "incomplited" }}
+              </button>
+            </span>
+            <div class="w-full md:w-auto flex flex-col gap-2">
+              <button
+                type="button"
+                class="w-full justify-center inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                (click)="onRegenerateTodo(todo.id)"
+              >
+                Regenerate
+              </button>
+              <button
+                type="button"
+                class="w-full justify-center focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900 w-full"
+                (click)="onRemoveTodo(todo.id)"
+              >
+                Remove
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      }
+    </div>
+  </div>
+</section>

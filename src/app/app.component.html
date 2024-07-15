@@ -1,5 +1,5 @@
-<button (click)="sayHello()">Say Hello!</button>
-
-<div>
-  {{ (greetings$ | async)?.message }}
-</div>
+<main class="container relative">
+  <app-header />
+  <router-outlet></router-outlet>
+  <app-footer />
+</main>

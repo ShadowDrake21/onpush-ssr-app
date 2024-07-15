@@ -1,0 +1,134 @@
+<section class="section quotes">
+  <div class="quotes__inner">
+    <div class="quotes__header mb-10">
+      <div class="flex items-end gap-3 w-full flex-col min-[920px]:flex-row">
+        <div class="quotes__header-custom__input-wrapper">
+          <label
+            for="customeQuote"
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white text-center"
+            >Personal quote</label
+          >
+          <input
+            type="text"
+            id="customeQuote"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Sukces wymaga poświęceń. Poświęcenia oznaczają ból. Ból oznacza sukces."
+            required
+            [(ngModel)]="customQuote"
+          />
+        </div>
+        <button
+          type="button"
+          class="w-full min-[920px]:w-auto text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 disabled:bg-blue-400"
+          (click)="onCreateCustomQuote()"
+          [disabled]="!customQuote.length"
+        >
+          Create
+        </button>
+      </div>
+      <div class="flex flex-col items-center w-full min-[920px]:w-auto">
+        <label
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >Random quote</label
+        >
+        <div class="flex gap-3 items-end w-full">
+          <button
+            type="button"
+            class="text-white w-full min-[920px]:w-32 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+            (click)="onFetchRandom()"
+          >
+            {{ actionTitle$$ | async }}
+          </button>
+
+          <select
+            id="countries"
+            class="w-20 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            [(ngModel)]="selectedRandomCount"
+            (change)="onFetchRandom()"
+          >
+            @for (item of generateItemsCount(10); track $index) {
+            <option [value]="item">{{ item }}</option>
+            }
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+      @if ((quotes$ | async)?.length) { @if (quotes$ | async; as quotes) {
+      <div class="text-right">
+        <button
+          class="text-purple-700 hover:text-white border border-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-purple-400 dark:text-purple-400 dark:hover:text-white dark:hover:bg-purple-500 dark:focus:ring-purple-900"
+          (click)="onTableDownload()"
+        >
+          <fa-icon [icon]="faDownload"></fa-icon>
+        </button>
+      </div>
+      <table
+        class="w-full text-sm text-center rtl:text-right text-gray-500 dark:text-gray-400"
+        #quotesTable
+      >
+        <thead
+          class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+        >
+          <tr>
+            <th scope="col" class="px-6 py-3">Id</th>
+            <th scope="col" class="px-6 py-3">Quote</th>
+            <th scope="col" class="px-6 py-3">Author</th>
+            <th scope="col" class="px-6 py-3">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (quote of quotes; track quote.id) {
+          <tr
+            [id]="quote.id"
+            class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700"
+          >
+            <th
+              scope="row"
+              class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+            >
+              {{ quote.id }}
+            </th>
+            <td class="px-6 py-4">
+              @if (editQuote === quote.id) {<input
+                class="w-full"
+                type="text"
+                [value]="quote.quote"
+                (input)="onChangeQuoteField($event, quote.id, 'quote')"
+                (keydown.enter)="editQuote = null"
+              />} @else{{{ quote.quote}}}
+            </td>
+            <td class="px-6 py-4">
+              @if (editQuote === quote.id) {<input
+                class="w-full"
+                type="text"
+                [value]="quote.author"
+                (input)="onChangeQuoteField($event, quote.id, 'author')"
+                (keydown.enter)="editQuote = null"
+              />} @else{{{ quote.author}}}
+            </td>
+            <td class="px-6 py-4 flex flex-col gap-1">
+              <button
+                class="h-full font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                [ngClass]="{ 'bg-sky-200': editQuote }"
+                (click)="editQuote = editQuote === quote.id ? null : quote.id"
+              >
+                {{ editQuote === quote.id ? "Update" : "Edit" }}
+              </button>
+              <button
+                class="h-full font-medium text-red-600 dark:text-red-500 hover:underline"
+                (click)="onQuoteRemove(quote.id)"
+              >
+                Remove
+              </button>
+            </td>
+          </tr>
+          }
+        </tbody>
+      </table>
+      }}@else {
+      <app-list-skeleton />
+      }
+    </div>
+  </div>
+</section>
