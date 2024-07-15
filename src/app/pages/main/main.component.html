@@ -1,14 +1,28 @@
 <section class="section">
-  <h1 class="text-2xl font-bold pb-5 text-center underline">
+  <h1
+    class="text-lg md:text-xl lg:text-2xl font-bold pb-3 lg:pb-5 text-center underline"
+  >
     <a href="https://github.com/ShadowDrake21" target="_blank">
       ChangeDetection.OnPush && SSR Application by Drake21
     </a>
   </h1>
-  <div class="flex gap-10 justify-center px-5 pb-5">
-    <img src="/assets/images/main-cd.webp" alt="main cd img" class="w-1/2" />
-    <img src="/assets/images/main-ssr.webp" alt="main ssr img" class="w-1/2" />
+  <div
+    class="flex flex-col sm:flex-row gap-5 sm:gap-10 justify-center px-5 pb-5"
+  >
+    <img
+      src="/assets/images/main-cd.webp"
+      alt="main cd img"
+      class="w-full sm:w-1/2"
+    />
+    <img
+      src="/assets/images/main-ssr.webp"
+      alt="main ssr img"
+      class="w-full sm:w-1/2"
+    />
   </div>
-  <div class="flex justify-between gap-10 px-5">
+  <div
+    class="flex flex-col lg:flex-row justify-between gap-4 lg:gap-10 px-5 py-5 sm:py-0"
+  >
     <div class="flex flex-col gap-4 w-full">
       <main-link link="/todos">Todos</main-link>
       <main-link link="/quotes">Quotes</main-link>

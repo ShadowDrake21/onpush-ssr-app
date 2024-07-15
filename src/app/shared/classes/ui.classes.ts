@@ -3,3 +3,7 @@ export const inputClasses =
 
 export const recipesSpanClasses =
   'text-sm text-gray-500 dark:text-gray-400 pb-2';
+
+export const usersParagraphClasses =
+  'text-base text-gray-500 dark:text-gray-400 break-all';
+export const usersSpanClasses = 'text-black';

@@ -21,6 +21,6 @@ export class LinkComponent {
 
   @Input({ required: true }) link: string = '';
 
-  linkClasses = `main-link block max-w-full p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700`;
-  h5Classes = `mb-2 text-2xl font-bold tracking-tight text-right text-gray-900 dark:text-white`;
+  linkClasses = `main-link block max-w-full p-3 lg:p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700`;
+  h5Classes = `mb-2 text-lg md:text-xl lg:text-2xl font-bold tracking-tight text-right text-gray-900 dark:text-white`;
 }

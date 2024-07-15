@@ -24,11 +24,23 @@ import {
 } from '@angular/animations';
 import { ReusableCardComponent } from '@shared/components/reusable-card/reusable-card.component';
 import { initializeDraggable } from '@shared/utils/dragElement.utils';
+import {
+  usersParagraphClasses,
+  usersSpanClasses,
+} from '@shared/classes/ui.classes';
+import { SkeletonComponent } from './components/skeleton/skeleton.component';
 
 @Component({
   selector: 'app-users',
   standalone: true,
-  imports: [AsyncPipe, JsonPipe, DatePipe, NgClass, ReusableCardComponent],
+  imports: [
+    AsyncPipe,
+    JsonPipe,
+    DatePipe,
+    NgClass,
+    ReusableCardComponent,
+    SkeletonComponent,
+  ],
   templateUrl: './users.component.html',
   styleUrl: './users.component.css',
   animations: [
@@ -53,6 +65,9 @@ export class UsersComponent implements OnInit, AfterViewInit {
   private destroyRef = inject(DestroyRef);
 
   @ViewChild('movingElement') movingElement!: ElementRef<HTMLDivElement>;
+
+  usersParagraphClasses = usersParagraphClasses;
+  usersSpanClasses = usersSpanClasses;
 
   user$!: Observable<IUser>;
 

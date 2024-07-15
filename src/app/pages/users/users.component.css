@@ -8,3 +8,17 @@
   right: -40px;
   top: 0;
 }
+
+#movingElementSmall {
+  display: none;
+}
+
+@media (max-width: 1100px) {
+  #movingElementBig {
+    display: none;
+  }
+
+  #movingElementSmall {
+    display: block;
+  }
+}
