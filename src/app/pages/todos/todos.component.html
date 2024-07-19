@@ -32,7 +32,10 @@
 
     <div class="todos-list">
       @for (todo of todos$ | async; track todo.id) {
-      <div class="todo-wrapper max-w-full w-full md:max-w-auto md:w-auto">
+      <div
+        data-testingId="todo"
+        class="todo-wrapper max-w-full w-full md:max-w-auto md:w-auto"
+      >
         <div
           class="max-w-full md:max-w-sm w-full text-center md:text-left p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
         >
@@ -73,7 +76,7 @@
               </button>
               <button
                 type="button"
-                class="w-full justify-center focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900 w-full"
+                class="w-full justify-center focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
                 (click)="onRemoveTodo(todo.id)"
               >
                 Remove
