@@ -8,7 +8,7 @@ import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
   standalone: true,
   imports: [RouterLink, FontAwesomeModule],
   template: `
-    <a [routerLink]="link" [class]="linkClasses">
+    <a data-testingId="link" [routerLink]="link" [class]="linkClasses">
       <h5 [class]="h5Classes">
         <ng-content />{{ ' ' }}<fa-icon [icon]="faArrowRight" />
       </h5>
