@@ -132,14 +132,7 @@
       </div>
     </app-reusable-card>
     }@else {
-    <div
-      #movingElement
-      id="movingElementBig"
-      class="cursor-pointer absolute z-0 empty__wrapper"
-      style="user-select: none"
-      [ngClass]="{ hidden: loadingSig() }"
-      [@pulsation]="animateStateSig()"
-    >
+    <div class="cursor-pointer absolute z-0 empty__wrapper">
       <h4 class="text-3xl font-bold">Empty</h4>
     </div>
 

@@ -54,28 +54,13 @@ import { ApiService } from '@services/api.service';
   ],
   templateUrl: './users.component.html',
   styleUrl: './users.component.css',
-  animations: [
-    trigger('pulsation', [
-      transition('* => *', [
-        animate(
-          '1s',
-          keyframes([
-            style({ transform: 'scale(1)', offset: 0 }),
-            style({ transform: 'scale(1.2)', offset: 0.5 }),
-            style({ transform: 'scale(1)', offset: 1 }),
-          ])
-        ),
-      ]),
-    ]),
-  ],
+
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UsersComponent implements OnInit, AfterViewInit {
+export class UsersComponent {
   private apiService = inject(ApiService);
   private cdr = inject(ChangeDetectorRef);
   private destroyRef = inject(DestroyRef);
-
-  @ViewChild('movingElement') movingElement!: ElementRef<HTMLDivElement>;
 
   usersParagraphClasses = usersParagraphClasses;
   usersSpanClasses = usersSpanClasses;
@@ -84,23 +69,6 @@ export class UsersComponent implements OnInit, AfterViewInit {
 
   loadingSig = signal<boolean>(false);
   animateStateSig = signal<string>('start');
-
-  ngOnInit(): void {}
-
-  ngAfterViewInit(): void {
-    if (this.movingElement) {
-      initializeDraggable(this.movingElement.nativeElement);
-    }
-    this.startAnimationLoop();
-  }
-
-  private startAnimationLoop() {
-    setInterval(() => {
-      this.animateStateSig.set(
-        this.animateStateSig() === 'start' ? 'end' : 'start'
-      );
-    }, 1000);
-  }
 
   onFetchSingleUser() {
     this.loadingSig.set(true);
