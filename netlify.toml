@@ -1,7 +1,3 @@
-[build]
-  command = "npm run build:ssr"
-  functions = "./functions"
-  publish = "dist/my-app/server"
 [[redirects]]
   from = "/*"
   to = "/index.html"
