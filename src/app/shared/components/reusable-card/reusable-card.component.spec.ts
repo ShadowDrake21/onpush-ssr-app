@@ -1,5 +1,7 @@
+// Angular stuff
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+// components
 import { ReusableCardComponent } from './reusable-card.component';
 
 describe('ReusableCardComponent', () => {
@@ -8,10 +10,9 @@ describe('ReusableCardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ReusableCardComponent]
-    })
-    .compileComponents();
-    
+      imports: [ReusableCardComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(ReusableCardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

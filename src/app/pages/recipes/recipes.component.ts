@@ -1,11 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-  OnInit,
-  signal,
-} from '@angular/core';
-import { ApiService } from '@services/api.service';
+// Angular stuff
 import {
   debounceTime,
   distinctUntilChanged,
@@ -16,12 +9,30 @@ import {
   switchMap,
   tap,
 } from 'rxjs';
-import { IRecipe, IRecipeWithAddInfo } from '@shared/models/recipe.model';
-import { ReusableCardComponent } from '@shared/components/reusable-card/reusable-card.component';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { AsyncPipe, JsonPipe, NgClass } from '@angular/common';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { fromNumberToArr } from '@shared/utils/array.utils';
+
+// services
+import { ApiService } from '@services/api.service';
+
+// css classes
 import { inputClasses, recipesSpanClasses } from '@shared/classes/ui.classes';
+
+// interfaces
+import { IRecipe, IRecipeWithAddInfo } from '@shared/models/recipe.model';
+
+// components
+import { ReusableCardComponent } from '@shared/components/reusable-card/reusable-card.component';
+
+// utils
+import { fromNumberToArr } from '@shared/utils/array.utils';
 
 @Component({
   selector: 'app-recipes',

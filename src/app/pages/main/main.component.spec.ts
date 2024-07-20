@@ -1,11 +1,14 @@
+// Angular stuff
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MainComponent } from './main.component';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { LinkComponent } from './components/link/link.component';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { of } from 'rxjs';
+
+// components
+import { LinkComponent } from './components/link/link.component';
+import { MainComponent } from './main.component';
 
 fdescribe('MainComponent', () => {
   let fixture: ComponentFixture<MainComponent>;

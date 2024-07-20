@@ -1,11 +1,15 @@
-import { HttpClientModule, HttpErrorResponse } from '@angular/common/http';
+// Angular stuff
+import { HttpErrorResponse } from '@angular/common/http';
 import {
   HttpClientTestingModule,
   HttpTestingController,
 } from '@angular/common/http/testing';
-import { inject } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
+
+// services
 import { ApiService } from '@services/api.service';
+
+// interfaces
 import { ITodo } from '@shared/models/todo.model';
 
 const todos: ITodo[] = [

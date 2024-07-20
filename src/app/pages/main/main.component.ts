@@ -1,5 +1,8 @@
+// Angular stuff
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
+// components
 import { LinkComponent } from './components/link/link.component';
 
 @Component({

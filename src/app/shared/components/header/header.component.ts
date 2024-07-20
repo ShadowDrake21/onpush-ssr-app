@@ -1,6 +1,9 @@
+// Angular stuff
 import { Component } from '@angular/core';
-import { IMenuItem } from '../../models/navbar.model';
 import { RouterLink } from '@angular/router';
+
+// interfaces
+import { IMenuItem } from '../../models/navbar.model';
 
 @Component({
   selector: 'app-header',

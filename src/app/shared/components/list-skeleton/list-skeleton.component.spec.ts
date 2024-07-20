@@ -1,5 +1,7 @@
+// Angular stuff
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+// components
 import { ListSkeletonComponent } from './list-skeleton.component';
 
 describe('ListSkeletonComponent', () => {
@@ -8,10 +10,9 @@ describe('ListSkeletonComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ListSkeletonComponent]
-    })
-    .compileComponents();
-    
+      imports: [ListSkeletonComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(ListSkeletonComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

@@ -1,20 +1,27 @@
+// Angular stuff
 import {
   ComponentFixture,
   fakeAsync,
   flush,
   TestBed,
 } from '@angular/core/testing';
-import { TodosComponent } from './todos.component';
-import { ApiService } from '@services/api.service';
 import {
   HttpClientTestingModule,
   HttpTestingController,
 } from '@angular/common/http/testing';
 import { ChangeDetectorRef } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ITodo } from '@shared/models/todo.model';
 import { of } from 'rxjs';
 import { By } from '@angular/platform-browser';
+
+// services
+import { ApiService } from '@services/api.service';
+
+// components
+import { TodosComponent } from './todos.component';
+
+// interfaces
+import { ITodo } from '@shared/models/todo.model';
 
 fdescribe('TodosComponent', () => {
   let component: TodosComponent;

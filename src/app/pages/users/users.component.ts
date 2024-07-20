@@ -1,3 +1,4 @@
+// Angular stuff
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -10,9 +11,7 @@ import {
   signal,
   ViewChild,
 } from '@angular/core';
-import { ApiService } from '@services/api.service';
 import { map, Observable, of, tap } from 'rxjs';
-import { IUser } from '@shared/models/user.model';
 import { AsyncPipe, DatePipe, JsonPipe, NgClass } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
@@ -22,13 +21,25 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
+
+// components
 import { ReusableCardComponent } from '@shared/components/reusable-card/reusable-card.component';
+import { SkeletonComponent } from './components/skeleton/skeleton.component';
+
+// utils
 import { initializeDraggable } from '@shared/utils/dragElement.utils';
+
+// css classes
 import {
   usersParagraphClasses,
   usersSpanClasses,
 } from '@shared/classes/ui.classes';
-import { SkeletonComponent } from './components/skeleton/skeleton.component';
+
+// interfaces
+import { IUser } from '@shared/models/user.model';
+
+// services
+import { ApiService } from '@services/api.service';
 
 @Component({
   selector: 'app-users',

@@ -1,3 +1,4 @@
+// Angular stuff
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -7,7 +8,6 @@ import {
   OnDestroy,
   ViewChild,
 } from '@angular/core';
-import { ApiService } from '@services/api.service';
 import { FormsModule } from '@angular/forms';
 import { AsyncPipe, JsonPipe, NgClass } from '@angular/common';
 import {
@@ -21,8 +21,15 @@ import {
   switchMap,
   tap,
 } from 'rxjs';
-import { ITodo } from '@shared/models/todo.model';
 import { animate, style, transition, trigger } from '@angular/animations';
+
+// services
+import { ApiService } from '@services/api.service';
+
+// interfaces
+import { ITodo } from '@shared/models/todo.model';
+
+// utils
 import { generateItemsCount } from '@shared/utils/select.utils';
 import { getRandomPosition } from '@shared/utils/math.utils';
 

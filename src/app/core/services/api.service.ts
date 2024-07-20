@@ -1,7 +1,12 @@
+// Angular stuff
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+
+// constants
 import { API_BASE_URL } from '../constants/api.constants';
+
+// interfaces
 import { ITodo } from '@shared/models/todo.model';
 import { IQuote } from '@shared/models/quote.model';
 import { IUser } from '@shared/models/user.model';

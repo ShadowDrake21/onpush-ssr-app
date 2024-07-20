@@ -1,3 +1,4 @@
+// Angular stuff
 import { Component } from '@angular/core';
 
 @Component({
@@ -5,8 +6,6 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './list-skeleton.component.html',
-  styleUrl: './list-skeleton.component.css'
+  styleUrl: './list-skeleton.component.css',
 })
-export class ListSkeletonComponent {
-
-}
+export class ListSkeletonComponent {}

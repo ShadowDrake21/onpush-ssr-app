@@ -1,11 +1,13 @@
+// Angular stuff
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { LinkComponent } from './link.component';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { of } from 'rxjs';
-import { Component, DebugElement } from '@angular/core';
+import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
+
+// components
+import { LinkComponent } from './link.component';
 
 fdescribe('LinkComponent', () => {
   let fixture: ComponentFixture<LinkComponent>;
