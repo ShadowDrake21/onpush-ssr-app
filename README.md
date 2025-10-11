@@ -1,18 +1,14 @@
-# OnpushSsrDummyApp
-
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.1.
-
-The application was created in order to practice ChangeDetectionStrategy.OnPush and Service-Side Rendering (SSR).
-
-## Quick tutorial
-
-![Quick tutorial](https://github.com/ShadowDrake21/onpush-ssr-app/raw/main/src/assets/readme-gif.gif)
-
 # ⚙️ OnpushSsrDummyApp
 
 **OnpushSsrDummyApp** is an experimental Angular application (generated with **Angular CLI v17.0.1**) built to explore and practice **ChangeDetectionStrategy.OnPush** and **Server-Side Rendering (SSR)** techniques.
 
 ---
+
+
+## Quick tutorial
+
+![Quick tutorial](https://github.com/ShadowDrake21/onpush-ssr-app/raw/main/src/assets/readme-gif.gif)
+
 
 ## 🧠 Purpose
 
