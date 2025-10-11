@@ -8,30 +8,89 @@ The application was created in order to practice ChangeDetectionStrategy.OnPush 
 
 ![Quick tutorial](https://github.com/ShadowDrake21/onpush-ssr-app/raw/main/src/assets/readme-gif.gif)
 
-## How to use?
+# ⚙️ OnpushSsrDummyApp
 
-Althought this project itself does not have any meaning, it allows a user to do simple tasks like fetching data of different kinds, CRUD operations, manual DOM modifications etc. All you have to do is clicking the buttons xd
+**OnpushSsrDummyApp** is an experimental Angular application (generated with **Angular CLI v17.0.1**) built to explore and practice **ChangeDetectionStrategy.OnPush** and **Server-Side Rendering (SSR)** techniques.
 
-## Development server
+---
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## 🧠 Purpose
 
-## Code scaffolding
+The main goal of this project is to understand how **Angular’s OnPush change detection** interacts with **SSR rendering**.  
+It serves as a sandbox environment for developers who want to test Angular performance patterns, data flow, and manual DOM manipulations.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+While this app doesn’t aim to solve real-world problems, it demonstrates a variety of fundamental Angular concepts in action.
 
-## Build
+---
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## 🚀 Features
 
-## Running unit tests
+- 🧩 Practice with **ChangeDetectionStrategy.OnPush**
+- 🌐 Experiment with **Angular SSR** rendering
+- ⚡ Perform **CRUD operations**
+- 📡 Fetch and display mock data from APIs
+- 🧱 Apply **manual DOM manipulations**
+- 🎮 Simple and interactive UI — “just click the buttons 😄”
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+---
 
-## Running end-to-end tests
+## 🧭 How to Use
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Although the app’s main goal is experimental, you can:
+1. Launch the development server.
+2. Interact with the UI elements to trigger data fetching or mutations.
+3. Observe how the app behaves with OnPush strategy enabled.
+4. Optionally run the project with SSR enabled to analyze rendering differences.
 
-## Further help
+---
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## 🧰 Development
+
+### Run the App Locally
+```bash
+ng serve
+```
+
+Navigate to http://localhost:4200/
+
+The app will automatically reload when you modify source files.
+
+Generate New Components
+ng generate component component-name
+You can also generate other Angular constructs:
+
+ng generate directive|pipe|service|class|guard|interface|enum|module
+Build for Production
+
+ng build
+Build artifacts are stored in the dist/ directory.
+
+🧪 Testing
+Unit Tests
+Run unit tests using Karma:
+
+ng test
+End-to-End Tests
+Run e2e tests:
+
+ng e2e
+Note: You may need to add a package that provides e2e testing capabilities first.
+
+💡 Additional Resources
+For more details on Angular CLI commands, visit the official documentation:
+👉 Angular CLI Overview and Command Reference
+
+🧩 Future Experiments
+Integrate Angular Universal for full SSR setup
+
+Compare OnPush vs Default change detection performance
+
+Add hydration experiments for SSR
+
+Introduce state management via RxJS or NgRx
+
+Analyze server vs client rendering timings
+
+👨‍💻 Author
+OnpushSsrDummyApp — a learning playground for developers diving deeper into Angular performance, reactivity, and SSR.
+
